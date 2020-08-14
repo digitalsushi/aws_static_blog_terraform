@@ -109,29 +109,22 @@ See below for the process.
 
 When you are ready to apply the plan, you can run `terraform apply planfile`.
 
-# Anything Else I Should Know?
+# This code is not perfect
 
-There is one little component here that is not solved by Terraform. Developers are 
-obsessed with this concept, 'idempotence'. We should really have a more common word so
-that it doesn't sound so obnoxiously academic, but it just means that, if you perform
-an identical action many times, will you always have the same effect, or will you add
-something new each time? If you set the table, and then put the dishes away - this is 
-idempotent. But if you set the table, and then again, there are now double the dishes you
-needed, which is not idempotent.
+This project is not a good example of 'idempotent' code because the TLS certificate it
+generates will generate a new certificate each time you run it. This is not ideal, so
+please keep this in mind if you're looking at this code as a specimen of good idempotent
+terraform code. We sidestep this with some shell scripting. Maybe there's a pure Terraform
+way to do this - it's escaped me.
 
-You need a TLS certificate for this project. If we request it from terraform, it's pretty
-easy to keep asking for a new certificate each time we run the `terraform plan` command. We 
+You need a TLS certificate for this project. If we request it from terraform, it's going
+to keep generating a new certificate each time we run the `terraform plan` command. We 
 do not want this. We want only one certificate because it's going to be valid no matter which
 server our website lives on.
 
 Instead, we have a tiny script that uses the aws command to request the certificate, and
 store the reference to this inside your terraform variables file. This allows you to request
 a certificate only once, instead of one for each time you run this experiment.
-
-There might be a clever way to solve this using only terraform. We're not doing it. There is
-a nice little side benefit that we can demonstrate how to use the aws cli from a script, so
-we are presenting our certificate solution in this manner. You should feel free
-to question whether this is a good way to solve these types of problems for yourself.
 
 # Now You Try It
 
