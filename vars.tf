@@ -29,14 +29,8 @@ variable "aws_access_key" {
   default = "ZZZ"
 }
 
-variable "aws_secret_key" {
-  description = "your secret aws key"
-}
-
 # This configures some basic terraform aws configuration using earlier values.
 provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
   region = var.aws_region
 }
 
