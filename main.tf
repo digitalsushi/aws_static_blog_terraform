@@ -16,13 +16,15 @@
 #  force_destroy = true
 #}
 
-# Use this resource to learn the configuration from your existing zone.
+# This will automatically learn the zone ID of your aws hosted domain, so
+# that terraform can add records to it.
 data "aws_route53_zone" "site_zone" {
   name         = var.domain_name
   private_zone = false
 }
 
-# Creates a new DNS CNAME with a host called 'static' on your domain.
+# Creates a new DNS cname of static.example.com that points to the canonical
+# aws url of your static s3 bucket.
 resource "aws_route53_record" "site_cname_static" {
   zone_id  = data.aws_route53_zone.site_zone.zone_id
   name     = "static.${var.domain_name}"
@@ -33,7 +35,8 @@ resource "aws_route53_record" "site_cname_static" {
   ]
 }
 
-# Creates a new DNS CNAME of your new website host, pointing to a new CloudFront host.
+# Creates a new DNS CNAME of your new website host. This will be your real website url
+# of https://www.example.com/ or whatever host you chose in vars.tf (blog.example.com, etc)
 resource "aws_route53_record" "site_cname" {
   zone_id  = data.aws_route53_zone.site_zone.zone_id
   name = var.site_name
@@ -44,7 +47,9 @@ resource "aws_route53_record" "site_cname" {
   ]
 }
 
-# Cretes a new S3 bucket named after your website host.
+# Creates a new S3 bucket with the name of your website. The canonical URL of this bucket
+# will be a random amazonaws.com address, and the CNAME you created above makes it so that
+# static.example.com will 'point' to the random amazonaws.com URL.
 resource "aws_s3_bucket" "site_bucket" {
   bucket = var.site_name
   acl = "public-read"
