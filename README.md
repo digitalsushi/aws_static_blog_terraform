@@ -130,13 +130,33 @@ a certificate only once, instead of one for each time you run this experiment.
 
 ## Prerequisites
 
+### DNS Stuff
+
+You must have a domain hosted in AWS S3, and it must not have a host named 'www' or 'static'.
+
+The domain must be able to receive emails with the admin@ email address. You will receive an email
+from AWS to verify the TLS certificate signed for www.example.com.
+
+### Tooling
+
 You must have terraform version 12, the 'jq' command, and the 'aws' command line installed.
+
+### Authentication/Environment
 
 Additionally, you must have your AWS credentials configured for the aws command to work. You can
 do this with the aws configure command, or by exporting your keypair in your environment.
 
-## Commands
+If you have these variables set, Terraform will be able to authenticate automatically:
 
+```
+AWS_DEFAULT_REGION=us-east-1
+AWS_SECRET_ACCESS_KEY=secret
+AWS_ACCESS_KEY_ID=id
+```
+
+## Run it for real on your own domain
+
+* Replace example.com with your domain in vars.tf
 * ./req\_cert.sh
 * terraform init
 * terraform plan -out "my\_planfile"
@@ -145,14 +165,8 @@ do this with the aws configure command, or by exporting your keypair in your env
 This process could take a while - a half hour is reasonable for a CloudFront to be created. It has never
 finished less than 10 minutes. 
 
-Go to S3 in the AWS Console if this completes, and upload a fun test file. Follow the S3 directions to make sure
+Go to S3 in the AWS Console if this completes, and upload an index.html. Follow the S3 directions to make sure
 the file is public. You can upload a whole folder if you want.
 
-If you go to the HTTPS hostname of your website, the site should load your file! The default html page 
-is named index.html. If you do not provide this file, then visiting the '/' URL will result in an error.
-You can still load a known filename, such as '/song.mp3' if you loaded a file called song.mp3 into the 
-root of the bucket.
-
-That's it! This is just the tip of the iceberg, a little appetizer to get some more interest in using Terraform.
-
-Thanks for checking it out!
+If you go to https://www.example.com/ then the site should load your file. I bet you probably know your way from 
+here so I won't patronize you further - have fun. Bye

@@ -20,15 +20,6 @@ variable "aws_region" {
 	default = "us-east-1"
 }
 
-# These next two are your public and private key.
-# You should never check your private key in and you're
-# probably not popular with security minded folks if you
-# commit your public key.
-variable "aws_access_key" {
-  description = "your public aws key"
-  default = "ZZZ"
-}
-
 # This configures some basic terraform aws configuration using earlier values.
 provider "aws" {
   region = var.aws_region

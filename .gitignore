@@ -1,2 +1,4 @@
 .terraform
 *.tfstate
+out.txt
+terraform.tfstate.backup
