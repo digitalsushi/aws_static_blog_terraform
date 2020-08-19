@@ -9,11 +9,10 @@ variable "domain_name" {
   default = "example.com"
 }
 
-# This is your website's FQDN. This is probably not
-# compatible with a 'naked domain', so it is recommended
-# that you definitely use a hostname in addition to your domain name.
+# This is your website's FQDN. This is not
+# compatible with a 'naked domain', so you must provide a host.
 variable "site_name" {
-  default = "blog.example.com"
+  default = "www.example.com"
 }
 
 variable "aws_region" {
