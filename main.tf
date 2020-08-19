@@ -24,7 +24,8 @@ data "aws_route53_zone" "site_zone" {
 }
 
 # Creates a new DNS cname of static.example.com that points to the canonical
-# aws url of your static s3 bucket.
+# aws url of your static s3 bucket. This is a nice convenience URL for you to 
+# admin your site, and is not required.
 resource "aws_route53_record" "site_cname_static" {
   zone_id  = data.aws_route53_zone.site_zone.zone_id
   name     = "static.${var.domain_name}"
@@ -47,9 +48,9 @@ resource "aws_route53_record" "site_cname" {
   ]
 }
 
-# Creates a new S3 bucket with the name of your website. The canonical URL of this bucket
-# will be a random amazonaws.com address, and the CNAME you created above makes it so that
-# static.example.com will 'point' to the random amazonaws.com URL.
+# Creates a new S3 bucket with the name of your website. It will be accessible 
+# over a random amazonaws.com URL. Later, the CloudFront configuration will
+# configure www.example.com to be the front-end URL that visitors access.
 resource "aws_s3_bucket" "site_bucket" {
   bucket = var.site_name
   acl = "public-read"
@@ -59,13 +60,9 @@ resource "aws_s3_bucket" "site_bucket" {
   }
 }
 
-# Creates a new Cloudfront Content Delivery Network service. This 
-# is a great terraform example because it makes references to all
-# thing other resources that we set up earlier, to calculate whether
-# everything has been satisfied and is ready to actually create in AWS.
-# We will need our DNS and S3 resources all available for this resource to work.
+# Creates a new Cloudfront Content Delivery Network service. 
 #
-# Our Certificate is also referenced here, which was handled earlier before
+# Our Certificate is also referenced here, which you handled earlier before
 # terraform was run.
 
 resource "aws_cloudfront_distribution" "site_distribution" {
