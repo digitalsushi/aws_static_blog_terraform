@@ -25,7 +25,7 @@ provider "aws" {
 }
 
 # This variable is a little tricky - a shell script included in this project
-# will go ahead and generate a TLS signing request on your behalf, using the 
+# will generate a TLS signing request on your behalf, using the 
 # aws-cli command. This ends up in your email and you have to verify it as
 # the domain owner, before the Certificate Manager in the AWS console will list
 # the domain as verified. Inside the out.txt file is the ARN of this new certificate,
