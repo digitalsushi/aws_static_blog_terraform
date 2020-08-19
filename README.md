@@ -9,15 +9,18 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-(In plain English: If you use this software, it's not my fault if you spend a lot
+(Disclaimer in plain English: If you use this software, it's not my fault if you spend a lot
 of your money.)
 
-# What is this in Plain English?
+# Elevator Pitch
 
-This code sets AWS up for you to host a free static website with HTTPS. The domain
-isn't free, that's up to you to get one.
+This source code will help you set up a static file website in AWS, with TLS, so that
+you can easily have https://www.example.com up and running with minimal fuss, in AWS.
+You can just drag your static website into an S3 bucket using your web browser, and the
+site will immediately be online. This might cost you some money and you're fully responsible
+if it does.
 
-# What is this?
+# What is this? (A detailed explanation for people learning about Terraform)
 
 Terraform is an infrastructure as code tool that allows for the automatic
 configuration of servers, networking, storage, and related services. Terraform
