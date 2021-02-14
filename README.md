@@ -173,3 +173,9 @@ the file is public. You can upload a whole folder if you want.
 
 If you go to https://www.example.com/ then the site should load your file. I bet you probably know your way from 
 here so I won't patronize you further - have fun. Bye
+
+# How do I change files on the site?
+
+```
+aws s3 cp ./index.txt s3://bucket-name/ --acl public-read
+```
