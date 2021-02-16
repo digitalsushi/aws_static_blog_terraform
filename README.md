@@ -179,3 +179,11 @@ here so I won't patronize you further - have fun. Bye
 ```
 aws s3 cp ./index.txt s3://bucket-name/ --acl public-read
 ```
+
+# How do I invalidate the old S3 files in CloudFlare?
+
+```
+aws cloudfront list-distributions | jq '.DistributionList.Items[].Id'
+dist=E1543UX1VIN6RA
+aws cloudfront create-invalidation --distribution-id $dist --paths "/*"
+```
